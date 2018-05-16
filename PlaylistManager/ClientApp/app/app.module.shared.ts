@@ -10,6 +10,7 @@ import { HomeComponent } from './components/home/home.component';
 import { CounterComponent } from './components/counter/counter.component';
 import { AllMusicComponent } from './components/all-music/all-music.component';
 import { PagerComponent } from './components/pager/pager.component';
+import { AddPlaylistComponent } from './components/add-playlist/add-playlist.component';
 
 
 @NgModule({
@@ -19,7 +20,8 @@ import { PagerComponent } from './components/pager/pager.component';
         CounterComponent,
         HomeComponent,
         AllMusicComponent,
-        PagerComponent
+        PagerComponent,
+        AddPlaylistComponent
     ],
     imports: [
         CommonModule,
@@ -30,6 +32,7 @@ import { PagerComponent } from './components/pager/pager.component';
             { path: 'home', component: HomeComponent },
             { path: 'counter', component: CounterComponent },
             { path: 'all-music', component: AllMusicComponent },
+            { path: 'add-playlist', component: AddPlaylistComponent },
             { path: '**', redirectTo: 'home' }
         ])
     ]
