@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "LibraryImporter": {
+      "commandName": "Project",
+      "commandLineArgs": "C:\\Temp\\MyMusic.csv"
+    }
+  }
+}
