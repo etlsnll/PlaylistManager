@@ -33,14 +33,27 @@ namespace PlaylistManager.Controllers
             return num;
         }
         
-        // GET: api/MusicLibrary/AllTracks
+        /// <summary>
+        /// GET: api/MusicLibrary/AllTracks (server side paged results)
+        /// </summary>
+        /// <param name="pageNum">Page number to get</param>
+        /// <param name="pageSize">Page size</param>
+        /// <returns>List of music track info classes</returns>
         [HttpGet("[action]")]
         public IEnumerable<TrackInfo> AllTracks(int pageNum, int pageSize)
         {
             return _musicRepository.GetAllTracks(pageNum, pageSize);
         }
-
-
+        
+        /// <summary>
+        /// POST: api/MusicLibrary/AddPlayList
+        /// </summary>
+        /// <param name="name">The name of the new playlist</param>
+        [HttpPost("[action]")]
+        public void AddPlayList([FromBody]PlaylistInfo pl)
+        {
+            _musicRepository.AddPlayList(pl.Name);
+        }
 
 
 

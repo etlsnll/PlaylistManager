@@ -39,6 +39,12 @@ namespace PlaylistManager.Models
             var result = _dbContext.Tracks.Count();
             return result;
         }
+
+        public void AddPlayList(string title)
+        {
+            _dbContext.Playlists.Add(new Playlist() { Title = title });
+            _dbContext.SaveChanges();
+        }
     }
 
     public class TrackInfo
@@ -50,5 +56,10 @@ namespace PlaylistManager.Models
         public int? Year { get; set; }
         public string Title { get; set; }
         public int? TrackNum { get; set; }
+    }
+
+    public class PlaylistInfo
+    {
+        public string Name { get; set; }
     }
 }

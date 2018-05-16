@@ -8,12 +8,12 @@ import { Http } from '@angular/http';
 })
 
 export class AllMusicComponent {
-    public tracks: Track[];
-    public totalTracks: number;
+    public tracks: Track[] = [];
+    public totalTracks: number = 0;
     public p: number = 1;
     public pageSize: number = 10;
     public pageSizes: number[] = [10, 20, 30, 40, 50];
-    public totalPages: number;
+    public totalPages: number = 0;
     private url: string;
     private http: Http;
 

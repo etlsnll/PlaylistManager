@@ -1,24 +1,27 @@
 ﻿import { Component } from '@angular/core';
+import { Http } from '@angular/http';
 import { Playlist } from '../../playlist'; // Import the form model
+import { PlaylistService } from '../shared/playlist.service';
 
 @Component({
     selector: 'app-add-playlist',
     templateUrl: './add-playlist.component.html',
-    styleUrls: ['./add-playlist.component.css']
+    styleUrls: ['./add-playlist.component.css'],
+    providers: [PlaylistService]
 })
 /** add-playlist component*/
 export class AddPlaylistComponent {
 
-    /** add-playlist ctor */
-    constructor() { }
-
     model = new Playlist("");
     submitted = false;
+    
+    /** add-playlist ctor */
+    constructor(private playlistService: PlaylistService) { }
 
     // Method to handle the form submission
     onSubmit() {
         this.submitted = true;
-        console.log("added new playlist: " + this.model.name);
-        // TODO
+        this.playlistService.addPlaylist(this.model);
+        console.log("Added new playlist: " + this.model.name);
     }
 }
