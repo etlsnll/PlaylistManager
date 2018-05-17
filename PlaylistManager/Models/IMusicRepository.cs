@@ -6,8 +6,12 @@ namespace PlaylistManager.Models
     {
         IEnumerable<TrackInfo> GetAllTracks(int pageNum, int pageSize);
 
-        int CountAllTracks();
+        int AllTracksCount { get; }
 
         void AddPlayList(string title);
+
+        int AllPlaylistsCount { get; }
+
+        IEnumerable<PlaylistSummary> GetAllPlaylists(int pageNum, int pageSize);
     }
 }

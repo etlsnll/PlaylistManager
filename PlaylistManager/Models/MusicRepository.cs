@@ -34,10 +34,13 @@ namespace PlaylistManager.Models
             return result;
         }
 
-        public int CountAllTracks()
+        public int AllTracksCount
         {
-            var result = _dbContext.Tracks.Count();
-            return result;
+            get
+            {
+                var result = _dbContext.Tracks.Count();
+                return result;
+            }
         }
 
         public void AddPlayList(string title)
@@ -45,21 +48,28 @@ namespace PlaylistManager.Models
             _dbContext.Playlists.Add(new Playlist() { Title = title });
             _dbContext.SaveChanges();
         }
-    }
 
-    public class TrackInfo
-    {
-        public int TrackId { get; set; }
-        public string Album { get; set; }
-        public string AlbumArtist { get; set; }
-        public string Artist { get; set; }
-        public int? Year { get; set; }
-        public string Title { get; set; }
-        public int? TrackNum { get; set; }
-    }
+        public int AllPlaylistsCount
+        {
+            get
+            {
+                var result = _dbContext.Playlists.Count();
+                return result;
+            }
+        }
 
-    public class PlaylistInfo
-    {
-        public string Name { get; set; }
+        public IEnumerable<PlaylistSummary> GetAllPlaylists(int pageNum, int pageSize)
+        {
+            var result = _dbContext.Playlists.OrderBy(p => p.Title)
+                                             .Skip((pageNum - 1) * pageSize)
+                                             .Take(pageSize)
+                                             .Select(p => new PlaylistSummary
+                                             {
+                                                 Id = p.PlaylistId,
+                                                 Name = p.Title,
+                                                 NumTracks = p.PlaylistTracks.Count()
+                                             });
+            return result;
+        }
     }
 }

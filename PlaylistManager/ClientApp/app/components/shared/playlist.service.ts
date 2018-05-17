@@ -5,8 +5,7 @@ import { Playlist } from '../../playlist'; // Import the form model
 
 const httpOptions = {
     headers: new Headers({
-        'Content-Type': 'application/json'//,
-        //'Authorization': 'my-auth-token'
+        'Content-Type': 'application/json'
     })
 };
 
@@ -26,10 +25,7 @@ export class PlaylistService {
         return Observable.throw(error.message || error);
     } 
 
-    addPlaylist(playlist: Playlist){
-
-        //console.log("POST URL: " + this.url + 'api/MusicLibrary/AddPlayList');
-
+    addPlaylist(playlist: Playlist) {        
         return this.http.post(this.url + 'api/MusicLibrary/AddPlayList', playlist)
                         .catch(this.handleErrorObservable)
                         .subscribe(res => console.log(res.json())); // Note - must subscribe to the response                        

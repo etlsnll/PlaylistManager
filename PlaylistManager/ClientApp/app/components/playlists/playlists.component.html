@@ -1,0 +1,31 @@
+﻿<h1>All Playlists</h1>
+
+<p *ngIf="!playlists"><em>Loading...</em></p>
+
+<table class='table' *ngIf="playlists">
+    <thead>
+        <tr>
+            <th>Title</th>
+            <th>Num Tracks</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let pl of playlists">
+            <td hidden>{{ pl.id }}</td>
+            <td>{{ pl.name }}</td>
+            <td>{{ pl.numTracks }}</td>
+        </tr>
+    </tbody>
+
+    <caption>Total playlists: {{totalPlaylists}}</caption>
+
+</table>
+<div>
+    <app-pager [page]="p"
+               [totalPages]="totalPages"
+               [pageSize]="pageSize"
+               [pageSizes]="pageSizes"
+               (changePage)="newPage($event)"
+               (newPageSize)="changePageSize($event)">
+    </app-pager>
+</div>

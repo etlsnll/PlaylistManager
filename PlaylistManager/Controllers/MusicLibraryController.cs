@@ -28,11 +28,11 @@ namespace PlaylistManager.Controllers
         [HttpGet("[action]")]
         public int CountAllTracks()
         {
-            var num = _musicRepository.CountAllTracks();
+            var num = _musicRepository.AllTracksCount;
             //_logger.LogInformation("Count All tracks method called - counted {0} tracks", num);
             return num;
         }
-        
+
         /// <summary>
         /// GET: api/MusicLibrary/AllTracks (server side paged results)
         /// </summary>
@@ -44,7 +44,7 @@ namespace PlaylistManager.Controllers
         {
             return _musicRepository.GetAllTracks(pageNum, pageSize);
         }
-        
+
         /// <summary>
         /// POST: api/MusicLibrary/AddPlayList
         /// </summary>
@@ -55,6 +55,28 @@ namespace PlaylistManager.Controllers
             _musicRepository.AddPlayList(pl.Name);
         }
 
+        // GET: api/MusicLibrary/CountAllPlaylists
+        [HttpGet("[action]")]
+        public int CountAllPlaylists()
+        {
+            var num = _musicRepository.AllPlaylistsCount;
+            return num;
+        }
+
+        /// <summary>
+        /// GET: api/MusicLibrary/AllPlaylists (server side paged results)
+        /// </summary>
+        /// <param name="pageNum">Page number to get</param>
+        /// <param name="pageSize">Page size</param>
+        /// <returns>List of music track info classes</returns>
+        [HttpGet("[action]")]
+        public IEnumerable<PlaylistInfo> AllPlaylists(int pageNum, int pageSize)
+        {
+            return _musicRepository.GetAllPlaylists(pageNum, pageSize);
+        }
+
+
+        ////////////////////////////////////////////////////////////////////
 
 
 
@@ -64,19 +86,19 @@ namespace PlaylistManager.Controllers
         {
             return "value";
         }
-        
+
         // POST: api/MusicLibrary
         [HttpPost]
         public void Post([FromBody]string value)
         {
         }
-        
+
         // PUT: api/MusicLibrary/5
         [HttpPut("{id}")]
         public void Put(int id, [FromBody]string value)
         {
         }
-        
+
         // DELETE: api/ApiWithActions/5
         [HttpDelete("{id}")]
         public void Delete(int id)
