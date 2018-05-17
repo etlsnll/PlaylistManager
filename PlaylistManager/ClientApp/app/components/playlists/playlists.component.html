@@ -12,7 +12,7 @@
     <tbody>
         <tr *ngFor="let pl of playlists">
             <td hidden>{{ pl.id }}</td>
-            <td>{{ pl.name }}</td>
+            <td><a href="/playlist/{{pl.id}}">{{ pl.name }}</a></td>
             <td>{{ pl.numTracks }}</td>
         </tr>
     </tbody>

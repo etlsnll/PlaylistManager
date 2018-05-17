@@ -41,6 +41,7 @@ export class AllMusicComponent {
         this.getTracks();
     }
 
+    // This GET method is an example of how you don't have to use a service, even if it is regarded as better architecture...
     private getTracks() {
         var search = new URLSearchParams();
         search.set('pageNum', this.p.toString()); // Add URL query param
