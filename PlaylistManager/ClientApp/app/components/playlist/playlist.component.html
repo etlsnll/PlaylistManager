@@ -1,5 +1,5 @@
 ﻿<div class="container">
-    <h1>Playlist: {{model.name}}</h1>
+    <h1>Playlist: {{model.name}} <!--({{id}})--></h1>
     <form (ngSubmit)="onSubmit()" #EditPlaylist="ngForm" class="plForm">
         <!-- Declare variable 'EditPlaylist' which is a reference to the ngForm directive -->
         <!-- Note that Angular automatically creates and attaches an NgForm directive to the <form> tag, so no need to add it here -->

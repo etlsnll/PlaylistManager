@@ -21,14 +21,15 @@ export class PlaylistComponent implements OnInit {
         private route: ActivatedRoute) {
 
         //TODO: get list of playlist tracks..
+
+        this.model.name = this.id.toString(); // TODO - this.userService.getUser(this.id);
     }
 
     ngOnInit() {
         this.route.params
             .subscribe(
                 (params: Params) => {
-                    this.id = +params['id'];
-                    this.model.name = this.id.toString(); // TODO - this.userService.getUser(this.id);
+                    this.id = params['id'];
                 }
             )
     }
