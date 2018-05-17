@@ -12,8 +12,9 @@
     <tbody>
         <tr *ngFor="let pl of playlists">
             <td hidden>{{ pl.id }}</td>
-            <td><a href="/playlist/{{pl.id}}">{{ pl.name }}</a></td>
-            <td>{{ pl.numTracks }}</td>
+            <td class="plTitle"><a href="/playlist/{{pl.id}}">{{ pl.name }}</a></td>
+            <td class="numTracks">{{ pl.numTracks }}</td>
+            <td><button class="delete" title="Delete" (click)="delete(pl.id)">X</button></td>
         </tr>
     </tbody>
 

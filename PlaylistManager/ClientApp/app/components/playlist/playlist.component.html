@@ -1,0 +1,16 @@
+﻿<div class="container">
+    <h1>Playlist: {{model.name}}</h1>
+    <form (ngSubmit)="onSubmit()" #EditPlaylist="ngForm" class="plForm">
+        <!-- Declare variable 'EditPlaylist' which is a reference to the ngForm directive -->
+        <!-- Note that Angular automatically creates and attaches an NgForm directive to the <form> tag, so no need to add it here -->
+        <div class="form-group">
+            <input type="text" class="form-control plName" id="name" name="name"
+                   required
+                   [(ngModel)]="model.name" #name="ngModel"> <!-- Use ngModel directives bind this element to the model, and declare variable 'name' to reference it -->
+            <div [hidden]="name.valid || name.pristine" class="alert alert-danger">
+                Name is required
+            </div>
+        </div>
+        <button type="submit" class="btn btn-success plUpdate" [disabled]="!EditPlaylist.form.valid">Update</button>
+    </form>
+</div>

@@ -11,6 +11,7 @@ import { AllMusicComponent } from './components/all-music/all-music.component';
 import { PagerComponent } from './components/pager/pager.component';
 import { AddPlaylistComponent } from './components/add-playlist/add-playlist.component';
 import { PlaylistsComponent } from './components/playlists/playlists.component';
+import { PlaylistComponent } from './components/playlist/playlist.component';
 
 
 @NgModule({
@@ -21,7 +22,8 @@ import { PlaylistsComponent } from './components/playlists/playlists.component';
         HomeComponent,
         AllMusicComponent,
         AddPlaylistComponent,
-        PlaylistsComponent
+        PlaylistsComponent,
+        PlaylistComponent
     ],
     imports: [
         CommonModule,
@@ -33,6 +35,7 @@ import { PlaylistsComponent } from './components/playlists/playlists.component';
             { path: 'all-music', component: AllMusicComponent },
             { path: 'add-playlist', component: AddPlaylistComponent },
             { path: 'playlists', component: PlaylistsComponent },
+            { path: 'playlist/:id', component: PlaylistComponent },
             { path: '**', redirectTo: 'home' }
         ])
     ]

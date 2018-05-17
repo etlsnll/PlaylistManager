@@ -50,9 +50,9 @@ namespace PlaylistManager.Controllers
         /// </summary>
         /// <param name="name">The name of the new playlist</param>
         [HttpPost("[action]")]
-        public void AddPlayList([FromBody]PlaylistInfo pl)
+        public int AddPlayList([FromBody]PlaylistInfo pl)
         {
-            _musicRepository.AddPlayList(pl.Name);
+            return _musicRepository.AddPlayList(pl.Name);
         }
 
         // GET: api/MusicLibrary/CountAllPlaylists

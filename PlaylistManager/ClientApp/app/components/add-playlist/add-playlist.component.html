@@ -16,7 +16,8 @@
         </form>
     </div>
     <div [hidden]="!submitted">
-        <p>Playlist created</p>
+        <p>Playlist {{model.name}} created</p>
+        <a href="/playlist/{{newPlaylistId}}" class="btn btn-default" (click)="submitted=false; AddPlaylist.reset()">Goto playlist</a>
         <button type="button" class="btn btn-default" (click)="submitted=false; AddPlaylist.reset()">Add another</button>
     </div>
 </div>

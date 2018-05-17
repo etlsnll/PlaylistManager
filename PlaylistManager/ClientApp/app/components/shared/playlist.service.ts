@@ -29,7 +29,8 @@ export class PlaylistService {
     addPlaylist(playlist: Playlist) {        
         return this.http.post(this.url + 'api/MusicLibrary/AddPlayList', playlist)
                         .catch(this.handleErrorObservable)
-                        .subscribe(res => console.log(res.json())); // Note - must subscribe to the response even if not interested for POST to work                       
+                        .map(response => response.json() as number);
+                        //.subscribe(res => console.log(res)); // Note - must subscribe to the response even if not interested for POST to work                       
     }
 
     countPlaylists() {

@@ -23,10 +23,11 @@ export class AllMusicComponent {
         this.getTracks();
 
         // We rarely expect the tracks table in the DB to change, so just count the tracks once for efficiency, rather than every paged request:
-        http.get(baseUrl + 'api/MusicLibrary/CountAllTracks').subscribe(result => {
-            this.totalTracks = result.json() as number;
-            this.totalPages = Math.floor(this.totalTracks / this.pageSize) + 1;
-        }, error => console.error(error));
+        http.get(baseUrl + 'api/MusicLibrary/CountAllTracks')
+            .subscribe(result => {
+                this.totalTracks = result.json() as number;
+                this.totalPages = Math.floor(this.totalTracks / this.pageSize) + 1;
+            }, error => console.error(error));
 
     }
 

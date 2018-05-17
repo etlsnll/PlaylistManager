@@ -14,6 +14,7 @@ export class AddPlaylistComponent {
 
     model = new Playlist("");
     submitted = false;
+    newPlaylistId: number = 0;
     
     /** add-playlist ctor */
     constructor(private playlistService: PlaylistService) { }
@@ -21,7 +22,8 @@ export class AddPlaylistComponent {
     // Method to handle the form submission
     onSubmit() {
         this.submitted = true;
-        this.playlistService.addPlaylist(this.model);
+        this.playlistService.addPlaylist(this.model)
+            .subscribe(data => this.newPlaylistId = data);
         console.log("Added new playlist: " + this.model.name);
     }
 }

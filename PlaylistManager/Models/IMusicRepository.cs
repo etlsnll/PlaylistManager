@@ -8,7 +8,7 @@ namespace PlaylistManager.Models
 
         int AllTracksCount { get; }
 
-        void AddPlayList(string title);
+        int AddPlayList(string title);
 
         int AllPlaylistsCount { get; }
 

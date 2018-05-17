@@ -1,4 +1,4 @@
-﻿import { Component, Inject } from '@angular/core';
+﻿import { Component, Inject, AfterViewInit } from '@angular/core';
 import { PlaylistService, PlaylistSummary } from '../shared/playlist.service';
 
 @Component({
@@ -8,7 +8,7 @@ import { PlaylistService, PlaylistSummary } from '../shared/playlist.service';
     providers: [PlaylistService]
 })
 /** playlists component*/
-export class PlaylistsComponent {
+export class PlaylistsComponent implements AfterViewInit {
 
     public playlists: PlaylistSummary[] = [];
     public totalPlaylists: number = 0;
@@ -21,6 +21,9 @@ export class PlaylistsComponent {
     /** playlists ctor */
     constructor(playlistService: PlaylistService) {
         this.playlistService = playlistService;
+    }
+
+    ngAfterViewInit() {
         this.getPlaylists();
     }
 
@@ -38,11 +41,18 @@ export class PlaylistsComponent {
     private getPlaylists() {
         // Get count:
         this.playlistService.countPlaylists()
-            .subscribe(data => this.totalPlaylists = data);
-        this.totalPages = Math.floor(this.totalPlaylists / this.pageSize) + 1;
+            .subscribe(data => {
+                this.totalPlaylists = data;
+                this.totalPages = Math.floor(this.totalPlaylists / this.pageSize) + 1;
+            });
 
         //Get current page of results:
         this.playlistService.getPlaylists(this.p, this.pageSize)
             .subscribe(data => this.playlists = data);
+    }
+
+    public delete(playlistId: number): void {
+        //TODO...
+        console.log("Deleting playlist ID: " + playlistId);
     }
 }

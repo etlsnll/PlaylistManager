@@ -43,10 +43,12 @@ namespace PlaylistManager.Models
             }
         }
 
-        public void AddPlayList(string title)
-        {
-            _dbContext.Playlists.Add(new Playlist() { Title = title });
+        public int AddPlayList(string title)
+        { 
+            var pl = new Playlist() { Title = title };
+            _dbContext.Playlists.Add(pl);
             _dbContext.SaveChanges();
+            return pl.PlaylistId;
         }
 
         public int AllPlaylistsCount

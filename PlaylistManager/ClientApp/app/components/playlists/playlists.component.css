@@ -1,1 +1,6 @@
-﻿
+﻿td.numTracks {
+    width:100px;
+}
+td.plTitle {
+    max-width:300px;
+}

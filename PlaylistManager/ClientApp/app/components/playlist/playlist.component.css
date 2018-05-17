@@ -1,0 +1,10 @@
+﻿input.plName{
+    max-width:500px;
+}
+form.plForm {
+    display:inline-flex;
+}
+button.plUpdate {
+    margin-left: 10px;
+    height: 34px;
+}
