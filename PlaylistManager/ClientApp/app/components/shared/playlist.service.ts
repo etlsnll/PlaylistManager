@@ -5,11 +5,10 @@ import { Playlist } from '../../playlist'; // Import the form model
 
 const httpOptions = {
     headers: new Headers({
-        'Content-Type': 'application/json',
-        'Authorization': 'my-auth-token'
+        'Content-Type': 'application/json'//,
+        //'Authorization': 'my-auth-token'
     })
 };
-
 
 @Injectable()
 export class PlaylistService {
@@ -27,15 +26,12 @@ export class PlaylistService {
         return Observable.throw(error.message || error);
     } 
 
-    addPlaylist(playlist: Playlist): Observable<Playlist> {
-        return this.http.post(this.url + 'api/MusicLibrary/AddPlayList', playlist, httpOptions)
-            .mapTo(this.extractData)
-            .catch(this.handleErrorObservable);
-    }
+    addPlaylist(playlist: Playlist){
 
-    private extractData(res: Response) {
-        let body = res.json();
-        console.log("Response back from server: " + res);
-        return body || {};
+        //console.log("POST URL: " + this.url + 'api/MusicLibrary/AddPlayList');
+
+        return this.http.post(this.url + 'api/MusicLibrary/AddPlayList', playlist)
+                        .catch(this.handleErrorObservable)
+                        .subscribe(res => console.log(res.json())); // Note - must subscribe to the response                        
     }
 }

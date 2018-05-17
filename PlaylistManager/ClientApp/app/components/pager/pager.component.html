@@ -3,7 +3,7 @@
         <li [class.disabled]="page===1">
             <a (click)="prev()">Previous</a>
         </li>
-        <li>{{page}}</li>
+        <li>{{page}} ({{totalPages}})</li>
         <li [class.disabled]="page===totalPages">
             <a (click)="next()">Next</a>
         </li>

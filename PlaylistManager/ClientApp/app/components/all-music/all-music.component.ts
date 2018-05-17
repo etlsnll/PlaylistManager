@@ -1,5 +1,5 @@
 ﻿import { Component, Inject } from '@angular/core';
-import { Http } from '@angular/http';
+import { Http, URLSearchParams } from '@angular/http';
 
 @Component({
     selector: 'all-music',
@@ -24,7 +24,7 @@ export class AllMusicComponent {
 
         http.get(baseUrl + 'api/MusicLibrary/CountAllTracks').subscribe(result => {
             this.totalTracks = result.json() as number;
-            this.totalPages = Math.floor(this.totalTracks / this.pageSize);
+            this.totalPages = Math.floor(this.totalTracks / this.pageSize) + 1;
         }, error => console.error(error));
 
     }
@@ -41,7 +41,10 @@ export class AllMusicComponent {
     }
 
     private getTracks() {
-        this.http.get(this.url + 'api/MusicLibrary/AllTracks?pageNum=' + this.p + '&pageSize=' + this.pageSize).subscribe(result => {
+        var search = new URLSearchParams();
+        search.set('pageNum', this.p.toString()); // Add URL query param
+        search.set('pageSize', this.pageSize.toString()); // Add URL query param
+        this.http.get(this.url + 'api/MusicLibrary/AllTracks', { search: search }).subscribe(result => {
             this.tracks = result.json() as Track[];
         }, error => console.error(error));
     }
