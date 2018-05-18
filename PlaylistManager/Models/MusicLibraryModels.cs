@@ -27,6 +27,20 @@ namespace PlaylistManager.Models
     {
         public int? Id { get; set; }
         public int NumTracks { get; set; }
+    }
 
+    public class PlaylistDetails : PlaylistSummary
+    {
+        IEnumerable<TrackInfo> tracks;
+
+        public IEnumerable<TrackInfo> Tracks
+        {
+            get { return tracks; }
+            set
+            {
+                tracks = value;
+                NumTracks = tracks.Count();
+            }
+        }
     }
 }

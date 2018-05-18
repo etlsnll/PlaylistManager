@@ -22,15 +22,15 @@ namespace PlaylistManager.Models
                                            .Skip((pageNum - 1) * pageSize)
                                            .Take(pageSize)
                                            .Select(t => new TrackInfo
-            {
-                TrackId = t.TrackId,
-                Album = t.Album.Title,
-                AlbumArtist = t.Album.AlbumArtist,
-                Artist = t.Artist.Title,
-                Year = t.Album.Year,
-                Title = t.Title,
-                TrackNum = t.TrackNum
-            });
+                                            {
+                                                TrackId = t.TrackId,
+                                                Album = t.Album.Title,
+                                                AlbumArtist = t.Album.AlbumArtist,
+                                                Artist = t.Artist.Title,
+                                                Year = t.Album.Year,
+                                                Title = t.Title,
+                                                TrackNum = t.TrackNum
+                                            });
             return result;
         }
 
@@ -71,6 +71,42 @@ namespace PlaylistManager.Models
                                                  Name = p.Title,
                                                  NumTracks = p.PlaylistTracks.Count()
                                              });
+            return result;
+        }
+
+        /// <summary>
+        /// Get data about a playlist
+        /// </summary>
+        /// <param name="id">The ID of the list to retrieve</param>
+        /// <returns>A model of the data, or null if not found</returns>
+        public PlaylistDetails GetPlaylist(int id)
+        {
+            PlaylistDetails result = null;
+            var p = _dbContext.Playlists.FirstOrDefault(x => x.PlaylistId == id);
+
+            if (p != null)
+            {
+                result = new PlaylistDetails
+                {
+                    Id = p.PlaylistId,
+                    Name = p.Title                    
+                };
+                if (p.PlaylistTracks != null)
+                    result.Tracks = p.PlaylistTracks.OrderBy(x => x.TrackNum)
+                                             .Select(t => new TrackInfo
+                                             {
+                                                 TrackId = t.PlaylistTrackId,
+                                                 Album = t.Track.Album.Title,
+                                                 AlbumArtist = t.Track.Album.AlbumArtist,
+                                                 Artist = t.Track.Artist.Title,
+                                                 Year = t.Track.Album.Year,
+                                                 Title = t.Track.Title,
+                                                 TrackNum = t.TrackNum
+                                             });
+                else
+                    result.Tracks = new List<TrackInfo>(); // Empty list
+            }
+
             return result;
         }
     }

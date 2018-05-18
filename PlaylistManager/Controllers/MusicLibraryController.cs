@@ -75,17 +75,21 @@ namespace PlaylistManager.Controllers
             return _musicRepository.GetAllPlaylists(pageNum, pageSize);
         }
 
+        // GET: api/MusicLibrary/GetPlaylist/5
+        [HttpGet("[action]/{id}")]
+        public PlaylistDetails Playlist(int id)
+        {
+            var pl = _musicRepository.GetPlaylist(id);
+            if (pl == null)
+                _logger.LogError("Playlist with ID {} requested but not found in DB", id);
+            return pl;
+        }
+
+
 
         ////////////////////////////////////////////////////////////////////
 
 
-
-        // GET: api/MusicLibrary/5
-        [HttpGet("{id}", Name = "Get")]
-        public string Get(int id)
-        {
-            return "value";
-        }
 
         // POST: api/MusicLibrary
         [HttpPost]

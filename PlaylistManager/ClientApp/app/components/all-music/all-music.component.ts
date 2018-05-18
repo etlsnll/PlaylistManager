@@ -1,5 +1,6 @@
 ﻿import { Component, Inject } from '@angular/core';
 import { Http, URLSearchParams } from '@angular/http';
+import { Track } from '../shared/playlist.service';
 
 @Component({
     selector: 'all-music',
@@ -52,14 +53,4 @@ export class AllMusicComponent {
                     this.tracks = result.json() as Track[];
                 }, error => console.error(error));
     }
-}
-
-interface Track {
-    trackId: number;
-    album: string;
-    albumArtist: string | null;
-    artist: string;
-    year: number | null;
-    title: string;
-    trackNum: number | null;
 }

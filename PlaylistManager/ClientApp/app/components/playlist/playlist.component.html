@@ -1,5 +1,5 @@
 ﻿<div class="container">
-    <h1>Playlist: {{model.name}} <!--({{id}})--></h1>
+    <h1 class="plH1">Playlist:</h1>
     <form (ngSubmit)="onSubmit()" #EditPlaylist="ngForm" class="plForm">
         <!-- Declare variable 'EditPlaylist' which is a reference to the ngForm directive -->
         <!-- Note that Angular automatically creates and attaches an NgForm directive to the <form> tag, so no need to add it here -->
@@ -11,6 +11,6 @@
                 Name is required
             </div>
         </div>
-        <button type="submit" class="btn btn-success plUpdate" [disabled]="!EditPlaylist.form.valid">Update</button>
+        <button type="submit" class="btn btn-success plUpdate" [disabled]="!EditPlaylist.form.valid || EditPlaylist.form.pristine">Update</button>
     </form>
 </div>

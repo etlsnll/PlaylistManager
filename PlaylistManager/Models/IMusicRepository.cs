@@ -13,5 +13,7 @@ namespace PlaylistManager.Models
         int AllPlaylistsCount { get; }
 
         IEnumerable<PlaylistSummary> GetAllPlaylists(int pageNum, int pageSize);
+
+        PlaylistDetails GetPlaylist(int id);
     }
 }

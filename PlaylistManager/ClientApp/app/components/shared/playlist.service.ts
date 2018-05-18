@@ -44,12 +44,42 @@ export class PlaylistService {
         search.set('pageNum', pageNum.toString()); // Add URL query param
         search.set('pageSize', pageSize.toString()); // Add URL query param
         return this.http.get(this.url + 'api/MusicLibrary/AllPlaylists', { search: search })
+                        .catch(this.handleErrorObservable)
                         .map(response => response.json() as PlaylistSummary[]);
     }
+
+    getPlaylist(id: number) {
+        //console.log("getPlaylist() - Playlist id: " + id);
+        return this.http.get(this.url + 'api/MusicLibrary/Playlist/' + id.toString())
+                        .catch(this.handleErrorObservable)
+                        .map(response => response.json() as PlaylistDetails);
+    }
+}
+
+export class Track {
+
+    constructor() { }
+
+    public trackId: number;
+    public album: string;
+    public albumArtist: string | null;
+    public artist: string;
+    public year: number | null;
+    public title: string;
+    public trackNum: number | null;
 }
 
 export interface PlaylistSummary {
     id: number;
     name: string;
     numTracks: number;
+}
+
+export class PlaylistDetails {
+    constructor(
+        public id: number,
+        public name: string,
+        public numTracks: number,
+        public tracks: Track[]
+    ) { }
 }

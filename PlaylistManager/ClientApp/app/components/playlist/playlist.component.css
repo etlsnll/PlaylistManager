@@ -1,8 +1,15 @@
-﻿input.plName{
-    max-width:500px;
+﻿h1.plH1 {
+    display: inline;
+    vertical-align: sub;
+}
+
+input.plName {
+    max-width: 500px;
+    font-size:2em;
 }
 form.plForm {
     display:inline-flex;
+    margin-top:20px;
 }
 button.plUpdate {
     margin-left: 10px;
