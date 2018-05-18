@@ -1,8 +1,8 @@
 ﻿<div class="container">
     <h1 class="plH1">Playlist:</h1>
-    <form (ngSubmit)="onSubmit()" #EditPlaylist="ngForm" class="plForm">
-        <!-- Declare variable 'EditPlaylist' which is a reference to the ngForm directive -->
-        <!-- Note that Angular automatically creates and attaches an NgForm directive to the <form> tag, so no need to add it here -->
+    <!-- Declare variable 'EditPlaylist' which is a reference to the ngForm directive -->
+    <!-- Note that Angular automatically creates and attaches an NgForm directive to the <form> tag, so no need to add it here -->
+    <form (ngSubmit)="onSubmit()" #EditPlaylist="ngForm" class="plForm" name="plNameForm">
         <div class="form-group">
             <input type="text" class="form-control plName" id="name" name="name"
                    required
@@ -13,10 +13,44 @@
         </div>
         <button type="submit" class="btn btn-success plUpdate" [disabled]="!EditPlaylist.form.valid || EditPlaylist.form.pristine">Update</button>
     </form>
-    <div class="clear">
+    <div>
+        <p *ngIf="!model.tracks[0]">No tracks added to this playlist yet - use controls below to add tracks</p>
         <ol type="1">
-            <li *ngFor="let track of model.tracks">
+            <li *ngFor="let track of model.tracks" title="Album: {{track.album}}">
                 {{track.title}} - {{track.artist}} <span [hidden]="!track.year">({{track.year}})</span>
             </li>
         </ol>
     </div>
+    <div>
+        <hr class="separator">
+    </div>
+    <div class="srchCont">
+        <h3>Search tracks</h3>
+        <form #TrackSearch="ngForm" class="trForm" name="trSearchForm">
+            <label for="name">Track title</label><input type="text" [formControl]="searchTitle" class="form-control trSearch" id="title" name="title">
+            <label for="name">Artist</label><input type="text" [formControl]="searchArtist" class="form-control trSearch" id="artist" name="artist">
+            <label for="name">Album</label><input type="text" [formControl]="searchAlbum" class="form-control trSearch" id="album" name="album">
+            <button type="reset" class="btn btn-info" (click)="clearResults()">Reset</button>
+        </form>
+    </div>
+    <div class="srchResults">
+        <table class='table' *ngIf="tracks">
+            <thead>
+                <tr>
+                    <th>Title</th>
+                    <th>Artist</th>
+                    <th>Album</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let track of tracks">
+                    <td hidden>{{ track.trackId }}</td>
+                    <td class="titleCol">{{ track.title }}</td>
+                    <td>{{ track.artist }}</td>
+                    <td>{{ track.album }} <span [hidden]="!track.year">({{track.year}})</span></td>
+                    <td><button title="Add to playlist" class="btn btn-success">Add</button></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

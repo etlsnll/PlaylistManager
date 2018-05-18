@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 
 namespace PlaylistManager.Models
 {
@@ -108,6 +109,28 @@ namespace PlaylistManager.Models
                     result.Tracks = new List<TrackInfo>(); // Empty list
             }
 
+            return result;
+        }
+
+        public IEnumerable<TrackInfo> SearchTracks(string title, string artist, string album, int maxTake)
+        {
+            var result = _dbContext.Tracks.OrderBy(t => t.Title)
+                                           .ThenBy(t => t.Artist.Title)
+                                           .ThenBy(t => t.Album.Title)
+                                           .Where(t => String.IsNullOrEmpty(title) || EF.Functions.Like(t.Title, "%" + title + "%"))
+                                           .Where(t => String.IsNullOrEmpty(artist) || EF.Functions.Like(t.Artist.Title, "%" + artist + "%"))
+                                           .Where(t => String.IsNullOrEmpty(album) || EF.Functions.Like(t.Album.Title, "%" + album + "%"))
+                                           .Take(maxTake)
+                                           .Select(t => new TrackInfo
+                                           {
+                                               TrackId = t.TrackId,
+                                               Album = t.Album.Title,
+                                               AlbumArtist = t.Album.AlbumArtist,
+                                               Artist = t.Artist.Title,
+                                               Year = t.Album.Year,
+                                               Title = t.Title,
+                                               TrackNum = t.TrackNum
+                                           });
             return result;
         }
     }

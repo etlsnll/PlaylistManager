@@ -68,7 +68,7 @@ namespace PlaylistManager.Controllers
         /// </summary>
         /// <param name="pageNum">Page number to get</param>
         /// <param name="pageSize">Page size</param>
-        /// <returns>List of music track info classes</returns>
+        /// <returns>List of music playlist info classes</returns>
         [HttpGet("[action]")]
         public IEnumerable<PlaylistInfo> AllPlaylists(int pageNum, int pageSize)
         {
@@ -85,6 +85,18 @@ namespace PlaylistManager.Controllers
             return pl;
         }
 
+        /// <summary>
+        /// GET: api/MusicLibrary/SearchTracks (server side paged results)
+        /// </summary>
+        /// <param name="title">keywords to search track title</param>
+        /// <param name="artist">keywords to search track artist</param>
+        /// <param name="album">keywords to search track album</param>
+        /// <returns>List of top 20 music tracks that match the search terms</returns>
+        [HttpGet("[action]")]
+        public IEnumerable<TrackInfo> SearchTracks(string title, string artist, string album)
+        {
+            return _musicRepository.SearchTracks(title, artist, album, 20);
+        }
 
 
         ////////////////////////////////////////////////////////////////////

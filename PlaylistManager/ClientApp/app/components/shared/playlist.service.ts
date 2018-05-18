@@ -54,6 +54,16 @@ export class PlaylistService {
                         .catch(this.handleErrorObservable)
                         .map(response => response.json() as PlaylistDetails);
     }
+
+    searchTracks(title: string, artist: string, album: string) {
+        var search = new URLSearchParams();
+        search.set('title', title); // Add URL query param
+        search.set('artist', artist); // Add URL query param
+        search.set('album', album); // Add URL query param
+        return this.http.get(this.url + 'api/MusicLibrary/SearchTracks', { search: search })
+            .catch(this.handleErrorObservable)
+            .map(response => response.json() as Track[]);
+    }
 }
 
 export interface Track {

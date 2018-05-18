@@ -15,5 +15,7 @@ namespace PlaylistManager.Models
         IEnumerable<PlaylistSummary> GetAllPlaylists(int pageNum, int pageSize);
 
         PlaylistDetails GetPlaylist(int id);
+
+        IEnumerable<TrackInfo> SearchTracks(string title, string artist, string album, int maxTake);
     }
 }
