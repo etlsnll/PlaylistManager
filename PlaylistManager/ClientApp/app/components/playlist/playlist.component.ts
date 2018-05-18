@@ -51,8 +51,14 @@ export class PlaylistComponent implements OnInit {
         var title: string = (this.searchTitle.value !== null ? this.searchTitle.value.toString() : "");
         var artist: string = (this.searchArtist.value !== null ? this.searchArtist.value.toString() : "");
         var album: string = (this.searchAlbum.value !== null ? this.searchAlbum.value.toString() : "");
-        this.playlistService.searchTracks(title, artist, album)
-                            .subscribe(result => this.tracks = result);
+
+        if (title === "" && artist === "" && album === "") {
+            this.clearResults();
+        }
+        else {
+            this.playlistService.searchTracks(title, artist, album)
+                                .subscribe(result => this.tracks = result);
+        }
     }
 
     clearResults() {
