@@ -24,7 +24,10 @@ export class PlaylistComponent implements OnInit {
         this.route.params
             .subscribe((params: Params) => {
                 this.id = params['id'];
-                this.playlistService.getPlaylist(this.id).subscribe(pl => this.model = pl);
+                this.playlistService.getPlaylist(this.id).subscribe(pl => {
+                    this.model = pl;
+                    //console.log(this.model.tracks[1].title);
+                });  
             })
     }
 

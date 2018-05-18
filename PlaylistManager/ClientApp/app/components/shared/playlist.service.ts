@@ -56,17 +56,14 @@ export class PlaylistService {
     }
 }
 
-export class Track {
-
-    constructor() { }
-
-    public trackId: number;
-    public album: string;
-    public albumArtist: string | null;
-    public artist: string;
-    public year: number | null;
-    public title: string;
-    public trackNum: number | null;
+export interface Track {
+     trackId: number;
+     album: string;
+     albumArtist: string | null;
+     artist: string;
+     year: number | null;
+     title: string;
+     trackNum: number | null;
 }
 
 export interface PlaylistSummary {

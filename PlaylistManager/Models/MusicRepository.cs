@@ -91,18 +91,19 @@ namespace PlaylistManager.Models
                     Id = p.PlaylistId,
                     Name = p.Title                    
                 };
-                if (p.PlaylistTracks != null)
-                    result.Tracks = p.PlaylistTracks.OrderBy(x => x.TrackNum)
-                                             .Select(t => new TrackInfo
-                                             {
-                                                 TrackId = t.PlaylistTrackId,
-                                                 Album = t.Track.Album.Title,
-                                                 AlbumArtist = t.Track.Album.AlbumArtist,
-                                                 Artist = t.Track.Artist.Title,
-                                                 Year = t.Track.Album.Year,
-                                                 Title = t.Track.Title,
-                                                 TrackNum = t.TrackNum
-                                             });
+                if (_dbContext.PlaylistTracks.Any(x => x.PlaylistId == p.PlaylistId))
+                    result.Tracks = _dbContext.PlaylistTracks.Where(x => x.PlaylistId == p.PlaylistId)
+                                                             .OrderBy(x => x.TrackNum)
+                                                             .Select(t => new TrackInfo
+                                                             {
+                                                                 TrackId = t.PlaylistTrackId,
+                                                                 Album = t.Track.Album.Title,
+                                                                 AlbumArtist = t.Track.Album.AlbumArtist,
+                                                                 Artist = t.Track.Artist.Title,
+                                                                 Year = t.Track.Album.Year,
+                                                                 Title = t.Track.Title,
+                                                                 TrackNum = t.TrackNum
+                                                             });
                 else
                     result.Tracks = new List<TrackInfo>(); // Empty list
             }

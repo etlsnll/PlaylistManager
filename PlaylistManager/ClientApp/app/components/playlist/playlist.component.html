@@ -13,4 +13,10 @@
         </div>
         <button type="submit" class="btn btn-success plUpdate" [disabled]="!EditPlaylist.form.valid || EditPlaylist.form.pristine">Update</button>
     </form>
-</div>
+    <div class="clear">
+        <ol type="1">
+            <li *ngFor="let track of model.tracks">
+                {{track.title}} - {{track.artist}} <span [hidden]="!track.year">({{track.year}})</span>
+            </li>
+        </ol>
+    </div>
