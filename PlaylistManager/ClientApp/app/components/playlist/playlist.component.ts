@@ -21,9 +21,9 @@ export class PlaylistComponent implements OnInit {
     id: number = 0;
     tracks: Track[] = [];
     public showConfirm: boolean = false;
-    private confimTimeMs: number = 3000;
-    private subscription: Subscription;
-    private timer: Observable<any>;
+    private confirmTimeMs: number = 3000;
+    private subscription: Subscription = new Subscription();
+    private timer: Observable<any> = new Observable();
     waitElementIds: string[] = ['title', 'album', 'artist'];
     searchTitle: FormControl = new FormControl();
     searchArtist: FormControl = new FormControl();
@@ -103,7 +103,7 @@ export class PlaylistComponent implements OnInit {
 
         this.showConfirm = true;
 
-        this.timer = Observable.timer(this.confimTimeMs); // [milliseconds]
+        this.timer = Observable.timer(this.confirmTimeMs); // [milliseconds]
         this.subscription = this.timer.subscribe(() => {
             // Hide element from view after timeout
             this.showConfirm = false;

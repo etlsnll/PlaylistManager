@@ -13,19 +13,19 @@ export class PagerComponent {
     }
 
     @Input()
-    private page: number = 1;
+    public page: number = 1;
 
     @Input()
-    private totalPages: number = 0;
+    public totalPages: number = 0;
 
     @Input()
-    private pageSize: number = 10;
+    public pageSize: number = 10;
 
     @Input()
-    private pageSizes: number[] = [10,20,30,40,50,60,70,80,90,100];
+    public pageSizes: number[] = [10,20,30,40,50,60,70,80,90,100];
 
     @Output()
-    private changePage: EventEmitter<number> = new EventEmitter<number>();
+    public changePage: EventEmitter<number> = new EventEmitter<number>();
 
     next() {
         this.changePage.emit(this.page < this.totalPages ? this.page + 1 : this.page);
