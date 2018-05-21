@@ -10,11 +10,11 @@
         </tr>
     </thead>
     <tbody>
-        <tr *ngFor="let pl of playlists">
+        <tr *ngFor="let pl of playlists" class="resultsRow">
             <td hidden>{{ pl.id }}</td>
             <td class="plTitle"><a href="/playlist/{{pl.id}}">{{ pl.name }}</a></td>
             <td class="numTracks">{{ pl.numTracks }}</td>
-            <td><button class="delete" title="Delete" (click)="delete(pl.id)">X</button></td>
+            <td class="deleteCol"><button class="delete btn btn-success" title="Delete" (click)="delete(pl.id)">Delete</button></td>
         </tr>
     </tbody>
 

@@ -1,6 +1,12 @@
-﻿td.numTracks {
-    width:100px;
+﻿table {
+    width:80%;
+}
+td.numTracks, td.deleteCol {
+    width: 100px;
 }
 td.plTitle {
     max-width:300px;
+}
+tr.resultsRow:hover {
+    background-color: lightgray;
 }
