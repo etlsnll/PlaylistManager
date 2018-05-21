@@ -5,6 +5,7 @@ import { Subscription } from 'rxjs/Subscription';
 import { Observable } from 'rxjs/Observable';
 import { PlaylistService, PlaylistDetails, Track } from '../shared/playlist.service';
 import { ActivatedRoute, Params } from '@angular/router';
+import { forEach } from '@angular/router/src/utils/collection';
 
 @Component({
     selector: 'app-playlist',
@@ -23,6 +24,7 @@ export class PlaylistComponent implements OnInit {
     private confimTimeMs: number = 3000;
     private subscription: Subscription;
     private timer: Observable<any>;
+    waitElementIds: string[] = ['title', 'album', 'artist'];
     searchTitle: FormControl = new FormControl();
     searchArtist: FormControl = new FormControl();
     searchAlbum: FormControl = new FormControl();
@@ -57,6 +59,7 @@ export class PlaylistComponent implements OnInit {
 
     searchTracks() {
         //console.log(this.searchTitle.value + ", " + this.searchArtist.value + ", " + this.searchAlbum.value);
+
         var title: string = (this.searchTitle.value !== null ? this.searchTitle.value.toString() : "");
         var artist: string = (this.searchArtist.value !== null ? this.searchArtist.value.toString() : "");
         var album: string = (this.searchAlbum.value !== null ? this.searchAlbum.value.toString() : "");
@@ -65,8 +68,12 @@ export class PlaylistComponent implements OnInit {
             this.clearResults();
         }
         else {
+            this.setWaitCursor();
             this.playlistService.searchTracks(title, artist, album)
-                                .subscribe(result => this.tracks = result);
+                                .subscribe(result => {
+                                    this.tracks = result;
+                                    this.resetWaitCursor();
+                                });
         }
     }
 
@@ -102,4 +109,23 @@ export class PlaylistComponent implements OnInit {
             this.showConfirm = false;
         });
     }
+
+    setWaitCursor() {
+        this.setCursorStyle('wait');
+    }
+
+    resetWaitCursor() {
+        this.setCursorStyle('default');
+    }
+
+    setCursorStyle(style: string) {
+        document.body.style.cursor = style;
+
+        this.waitElementIds.forEach(c => {
+            var t = document.getElementById(c);
+            if (t !== null)
+                t.style.cursor = style;
+        });
+    }
 }
+
