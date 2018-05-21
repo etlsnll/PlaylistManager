@@ -17,5 +17,7 @@ namespace PlaylistManager.Models
         PlaylistDetails GetPlaylist(int id);
 
         IEnumerable<TrackInfo> SearchTracks(string title, string artist, string album, int maxTake);
+
+        PlaylistDetails UpdatePlayListTitle(int id, string title);
     }
 }

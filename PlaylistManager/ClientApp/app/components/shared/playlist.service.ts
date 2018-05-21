@@ -64,6 +64,12 @@ export class PlaylistService {
             .catch(this.handleErrorObservable)
             .map(response => response.json() as Track[]);
     }
+
+    updatePlayListTitle(pl: PlaylistDetails) {
+        return this.http.put(this.url + 'api/MusicLibrary/UpdatePlayListTitle/' + pl.id.toString(), pl)
+            .catch(this.handleErrorObservable)
+            .map(response => response.json() as PlaylistDetails);
+    }
 }
 
 export interface Track {

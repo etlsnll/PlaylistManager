@@ -98,6 +98,16 @@ namespace PlaylistManager.Controllers
             return _musicRepository.SearchTracks(title, artist, album, 20);
         }
 
+        // PUT: api/MusicLibrary/UpdatePlayListTitle/5
+        [HttpPut("[action]/{id}")]
+        public PlaylistSummary UpdatePlayListTitle(int id, [FromBody]PlaylistDetails playlist)
+        {
+            var pl = _musicRepository.UpdatePlayListTitle(id, playlist.Name);
+            if (pl == null)
+                _logger.LogError("Playlist with ID {} requested but not found in DB", id);
+            return pl;
+        }
+
 
         ////////////////////////////////////////////////////////////////////
 

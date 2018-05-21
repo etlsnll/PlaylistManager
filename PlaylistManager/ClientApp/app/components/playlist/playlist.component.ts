@@ -1,6 +1,8 @@
-﻿import { Component, OnInit } from '@angular/core';
+﻿import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Http } from '@angular/http';
 import { FormControl } from '@angular/forms';
+import { Subscription } from 'rxjs/Subscription';
+import { Observable } from 'rxjs/Observable';
 import { PlaylistService, PlaylistDetails, Track } from '../shared/playlist.service';
 import { ActivatedRoute, Params } from '@angular/router';
 
@@ -10,12 +12,17 @@ import { ActivatedRoute, Params } from '@angular/router';
     styleUrls: ['./playlist.component.css'],
     providers: [PlaylistService]
 })
+    
 /** playlist component*/
 export class PlaylistComponent implements OnInit {
 
     model = new PlaylistDetails(0, "Unknown", 0, new Array<Track>());
     id: number = 0;
     tracks: Track[] = [];
+    public showConfirm: boolean = false;
+    private confimTimeMs: number = 3000;
+    private subscription: Subscription;
+    private timer: Observable<any>;
     searchTitle: FormControl = new FormControl();
     searchArtist: FormControl = new FormControl();
     searchAlbum: FormControl = new FormControl();
@@ -40,9 +47,11 @@ export class PlaylistComponent implements OnInit {
         this.route.params
             .subscribe((params: Params) => {
                 this.id = params['id'];
-                this.playlistService.getPlaylist(this.id).subscribe(pl => {
-                    this.model = pl;
-                });  
+                this.playlistService.getPlaylist(this.id)
+                                    .subscribe(pl => {
+                                        if (pl !== null)
+                                            this.model = pl;
+                                    });  
             })
     }
 
@@ -67,7 +76,30 @@ export class PlaylistComponent implements OnInit {
 
     // Method to update playlist name:
     onSubmit(): void {
-        //TODO
         //console.log("TODO: update playlist name: " + this.model.name + ", id: " + this.id);
+        this.playlistService.updatePlayListTitle(this.model)
+                            .subscribe(data => {
+                                if (data !== null) {
+                                    this.model = data;
+                                    this.setConfirmTimer();
+                                }
+                            });
+    }
+
+    public ngOnDestroy() {
+        if (this.subscription && this.subscription instanceof Subscription) {
+            this.subscription.unsubscribe();
+        }
+    }
+
+    public setConfirmTimer() {
+
+        this.showConfirm = true;
+
+        this.timer = Observable.timer(this.confimTimeMs); // [milliseconds]
+        this.subscription = this.timer.subscribe(() => {
+            // Hide element from view after timeout
+            this.showConfirm = false;
+        });
     }
 }

@@ -38,3 +38,10 @@ td.titleCol {
 div.srchResults {
     width:80%
 }
+tr.srchResultsRow:hover {
+    background-color:lightgray;
+}
+p.confirmUpdateName {
+    color:red;
+    margin-left:200px;
+}

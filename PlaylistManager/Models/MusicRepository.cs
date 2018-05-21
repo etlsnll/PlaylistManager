@@ -133,5 +133,17 @@ namespace PlaylistManager.Models
                                            });
             return result;
         }
+
+        public PlaylistDetails UpdatePlayListTitle(int id, string title)
+        {
+            var pl = _dbContext.Playlists.FirstOrDefault(x => x.PlaylistId == id);
+            if (pl != null)
+            {
+                pl.Title = title;
+                _dbContext.SaveChanges();
+                return GetPlaylist(id);
+            }
+            return null;
+        }
     }
 }
