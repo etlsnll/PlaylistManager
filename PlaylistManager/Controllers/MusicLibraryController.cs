@@ -91,11 +91,11 @@ namespace PlaylistManager.Controllers
         /// <param name="title">keywords to search track title</param>
         /// <param name="artist">keywords to search track artist</param>
         /// <param name="album">keywords to search track album</param>
-        /// <returns>List of top 20 music tracks that match the search terms</returns>
+        /// <returns>List of top 50 music tracks that match the search terms</returns>
         [HttpGet("[action]")]
         public IEnumerable<TrackInfo> SearchTracks(string title, string artist, string album)
         {
-            return _musicRepository.SearchTracks(title, artist, album, 20);
+            return _musicRepository.SearchTracks(title, artist, album, 50);
         }
 
         // PUT: api/MusicLibrary/UpdatePlayListTitle/5

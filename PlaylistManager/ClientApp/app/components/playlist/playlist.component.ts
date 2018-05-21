@@ -110,6 +110,13 @@ export class PlaylistComponent implements OnInit {
         });
     }
 
+    AddTrack(t: Track) {
+        t.trackNum = this.model.tracks.length + 1;
+        this.model.tracks.push(t);
+
+        // TODO: make service call to add this to the DB...
+    }
+
     setWaitCursor() {
         this.setCursorStyle('wait');
     }
