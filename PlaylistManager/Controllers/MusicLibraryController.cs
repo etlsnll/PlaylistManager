@@ -98,15 +98,39 @@ namespace PlaylistManager.Controllers
             return _musicRepository.SearchTracks(title, artist, album, 50);
         }
 
-        // PUT: api/MusicLibrary/UpdatePlayListTitle/5
+        /// <summary>
+        /// PUT: api/MusicLibrary/UpdatePlayListTitle/5
+        /// </summary>
+        /// <param name="id">ID of playlist to update</param>
+        /// <param name="playlist">Playlist model object containing new title</param>
+        /// <returns>Updated playlist model</returns>
         [HttpPut("[action]/{id}")]
         public PlaylistSummary UpdatePlayListTitle(int id, [FromBody]PlaylistDetails playlist)
         {
             var pl = _musicRepository.UpdatePlayListTitle(id, playlist.Name);
             if (pl == null)
-                _logger.LogError("Playlist with ID {} requested but not found in DB", id);
+                _logger.LogError("Playlist with ID {0} requested but not found in DB", id);
             return pl;
         }
+
+
+        /// <summary>
+        /// PUT: api/MusicLibrary/PlayListAddTrack/7
+        /// </summary>
+        /// <param name="id">ID of playlist to update</param>
+        /// <param name="info">Track model object for track to add</param>
+        /// <returns>Model for new track in playlist</returns>
+        [HttpPut("[action]/{id}")]
+        public TrackInfo PlayListAddTrack(int id, [FromBody]TrackInfo info)
+        {
+            var t = _musicRepository.PlayListAddTrack(id, info.TrackId, info.TrackNum ?? 0);
+            if (t == null)
+                _logger.LogError("Track with ID {0} failed to be added to playlist ID {1} in DB", info.TrackId, id);
+
+            return t;
+        }
+
+        
 
 
         ////////////////////////////////////////////////////////////////////

@@ -52,6 +52,36 @@ namespace PlaylistManager.Models
             return pl.PlaylistId;
         }
 
+        public TrackInfo PlayListAddTrack(int playlistId, int trackId, int trackNumInPlaylist)
+        {
+            var p = _dbContext.Playlists.FirstOrDefault(x => x.PlaylistId == playlistId);
+            // Use eager loading of track related objects by using Include(), as we need them a bit later:
+            var t = _dbContext.Tracks.Include(x => x.Album).Include(x => x.Artist).FirstOrDefault(x => x.TrackId == trackId);
+            TrackInfo track = null;
+            if (p != null && t != null)
+            {
+                var plt = new PlaylistTrack
+                {
+                    Track = t,
+                    Playlist = p,
+                    TrackNum = trackNumInPlaylist
+                };
+                _dbContext.PlaylistTracks.Add(plt);
+                _dbContext.SaveChanges();
+                track = new TrackInfo
+                {
+                    TrackId = plt.PlaylistTrackId,
+                    Album = plt.Track.Album.Title,
+                    AlbumArtist = plt.Track.Album.AlbumArtist,
+                    Artist = plt.Track.Artist.Title,
+                    Year = plt.Track.Album.Year,
+                    Title = plt.Track.Title,
+                    TrackNum = plt.TrackNum
+                };
+            }
+            return track;
+        }
+
         public int AllPlaylistsCount
         {
             get
@@ -95,6 +125,7 @@ namespace PlaylistManager.Models
                 if (_dbContext.PlaylistTracks.Any(x => x.PlaylistId == p.PlaylistId))
                     result.Tracks = _dbContext.PlaylistTracks.Where(x => x.PlaylistId == p.PlaylistId)
                                                              .OrderBy(x => x.TrackNum)
+                                                             .ThenBy(x => x.Track.Title)
                                                              .Select(t => new TrackInfo
                                                              {
                                                                  TrackId = t.PlaylistTrackId,

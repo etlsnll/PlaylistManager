@@ -70,6 +70,12 @@ export class PlaylistService {
             .catch(this.handleErrorObservable)
             .map(response => response.json() as PlaylistDetails);
     }
+
+    playListAddTrack<Track>(playlistId: number, t: Track) {
+        return this.http.put(this.url + 'api/MusicLibrary/PlayListAddTrack/' + playlistId.toString(), t)
+            .catch(this.handleErrorObservable)
+            .map(response => response.json() as Track);
+    }
 }
 
 export interface Track {

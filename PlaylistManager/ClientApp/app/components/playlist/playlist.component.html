@@ -27,10 +27,14 @@
                 </tr>
             </thead>-->
             <tbody>
-                <tr *ngFor="let track of model.tracks" title="Album: {{track.album}}">
+                <tr *ngFor="let track of model.tracks; let last = last; let first = first;" title="Album: {{track.album}}">
+                    <td hidden>{{track.trackId}}</td>
                     <td>{{track.trackNum}}</td>
                     <td>{{track.title}}</td>
                     <td>{{track.artist}} <span [hidden]="!track.year">({{track.year}})</span></td>
+                    <td><button (click)="removeTrack(track)" title="Remove"><strong>&nbsp;x&nbsp;</strong></button></td>
+                    <td><button [hidden]="first" (click)="moveTrackUp(track)" title="Move up">&#9650;</button></td>
+                    <td><button [hidden]="last" (click)="moveTrackDown(track)" title="Move down">&#9660;</button></td>
                 </tr>
             </tbody>
         </table>

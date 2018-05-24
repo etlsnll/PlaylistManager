@@ -41,6 +41,10 @@ div.srchResults {
 tr.srchResultsRow:hover {
     background-color:lightgray;
 }
+tr.srchResultsRow button {
+    height: 25px;
+    line-height: 11px;
+}
 p.confirmUpdateName {
     color:red;
     margin-left:200px;
@@ -51,4 +55,9 @@ table.plTracks td {
 }
 table.plTracks tr:hover {
     background-color: lightgray;
+}
+table.plTracks button {
+    height: 20px;
+    line-height: 9px;
+    margin-bottom: 1px;
 }

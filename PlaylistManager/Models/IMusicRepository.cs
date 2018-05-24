@@ -19,5 +19,7 @@ namespace PlaylistManager.Models
         IEnumerable<TrackInfo> SearchTracks(string title, string artist, string album, int maxTake);
 
         PlaylistDetails UpdatePlayListTitle(int id, string title);
+
+        TrackInfo PlayListAddTrack(int playlistId, int trackId, int trackNumInPlaylist);
     }
 }
