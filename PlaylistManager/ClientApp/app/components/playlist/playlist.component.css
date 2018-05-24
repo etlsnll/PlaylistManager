@@ -61,3 +61,7 @@ table.plTracks button {
     line-height: 9px;
     margin-bottom: 1px;
 }
+table.plTracks button:disabled {
+    opacity:0.5;
+    cursor:not-allowed;
+}
