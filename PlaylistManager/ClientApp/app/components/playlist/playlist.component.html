@@ -18,11 +18,22 @@
     </div>
     <div>
         <p *ngIf="!model.tracks[0]">No tracks added to this playlist yet - use controls below to add tracks</p>
-        <ol type="1">
-            <li *ngFor="let track of model.tracks" title="Album: {{track.album}}">
-                {{track.title}} - {{track.artist}} <span [hidden]="!track.year">({{track.year}})</span>
-            </li>
-        </ol>
+        <table class="plTracks">
+            <!--<thead>
+                <tr>
+                    <th>#</th>
+                    <th>Title</th>
+                    <th>Artist</th>
+                </tr>
+            </thead>-->
+            <tbody>
+                <tr *ngFor="let track of model.tracks" title="Album: {{track.album}}">
+                    <td>{{track.trackNum}}</td>
+                    <td>{{track.title}}</td>
+                    <td>{{track.artist}} <span [hidden]="!track.year">({{track.year}})</span></td>
+                </tr>
+            </tbody>
+        </table>
     </div>
     <div>
         <hr class="separator">

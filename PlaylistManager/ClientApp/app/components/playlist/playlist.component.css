@@ -45,3 +45,10 @@ p.confirmUpdateName {
     color:red;
     margin-left:200px;
 }
+table.plTracks td {
+    padding-left:5px;
+    padding-right:5px;
+}
+table.plTracks tr:hover {
+    background-color: lightgray;
+}

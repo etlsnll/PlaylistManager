@@ -111,7 +111,8 @@ export class PlaylistComponent implements OnInit {
     }
 
     AddTrack(t: Track) {
-        t.trackNum = this.model.tracks.length + 1;
+        var lastTrackNum = this.model.tracks[this.model.tracks.length - 1].trackNum;
+        t.trackNum = lastTrackNum === null ? (this.model.tracks.length + 1) : lastTrackNum + 1;
         this.model.tracks.push(t);
 
         // TODO: make service call to add this to the DB...
