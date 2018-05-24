@@ -79,6 +79,9 @@ export class PlaylistComponent implements OnInit {
 
     clearResults() {
         this.tracks = new Array<Track>();
+        this.searchTitle.setValue("");
+        this.searchArtist.setValue("");
+        this.searchAlbum.setValue("");
     }
 
     // Method to update playlist name:
