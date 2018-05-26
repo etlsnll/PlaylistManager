@@ -130,17 +130,20 @@ namespace PlaylistManager.Controllers
             return t;
         }
 
-        
-
-
-        ////////////////////////////////////////////////////////////////////
-
-
-
-        // DELETE: api/ApiWithActions/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
+        /// <summary>
+        /// DELETE: api/MusicLibrary/PlayList/4/DeleteTrack/12
+        /// </summary>
+        /// <param name="id">ID of playlist to update</param>
+        /// <param name="trackId">ID of track in playlist to remove</param>
+        /// <returns>Updated list of tracks for the playlist</returns>
+        [HttpDelete("PlayList/{id}/DeleteTrack/{trackId}")]
+        public IEnumerable<TrackInfo> PlayListDeleteTrack(int id, int trackId)
         {
+            var t = _musicRepository.PlayListDeleteTrack(id, trackId);
+            if (t == null)
+                _logger.LogError("Track with ID {0} failed to be deleted from playlist ID {1} in DB", trackId, id);
+
+            return t;
         }
     }
 }

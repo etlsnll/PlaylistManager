@@ -82,6 +82,26 @@ namespace PlaylistManager.Models
             return track;
         }
 
+        public IEnumerable<TrackInfo> PlayListDeleteTrack(int id, int trackId)
+        {
+            var trk = _dbContext.PlaylistTracks.FirstOrDefault(x => x.PlaylistTrackId == trackId && x.PlaylistId == id);
+            if (trk != null)
+            {
+                var trackNum = trk.TrackNum;
+                _dbContext.PlaylistTracks.Remove(trk);
+                _dbContext.PlaylistTracks.Where(x => x.PlaylistId == id && x.TrackNum > trackNum).ToList()
+                                         .ForEach(x =>
+                                         {
+                                             x.TrackNum = x.TrackNum - 1;
+                                         });
+                _dbContext.SaveChanges();
+
+                return GetPlaylistTracks(id);
+
+            }
+            return null;
+        }
+
         public int AllPlaylistsCount
         {
             get
@@ -123,24 +143,29 @@ namespace PlaylistManager.Models
                     Name = p.Title                    
                 };
                 if (_dbContext.PlaylistTracks.Any(x => x.PlaylistId == p.PlaylistId))
-                    result.Tracks = _dbContext.PlaylistTracks.Where(x => x.PlaylistId == p.PlaylistId)
-                                                             .OrderBy(x => x.TrackNum)
-                                                             .ThenBy(x => x.Track.Title)
-                                                             .Select(t => new TrackInfo
-                                                             {
-                                                                 TrackId = t.PlaylistTrackId,
-                                                                 Album = t.Track.Album.Title,
-                                                                 AlbumArtist = t.Track.Album.AlbumArtist,
-                                                                 Artist = t.Track.Artist.Title,
-                                                                 Year = t.Track.Album.Year,
-                                                                 Title = t.Track.Title,
-                                                                 TrackNum = t.TrackNum
-                                                             });
+                    result.Tracks = GetPlaylistTracks(p.PlaylistId);
                 else
                     result.Tracks = new List<TrackInfo>(); // Empty list
             }
 
             return result;
+        }
+
+        private IEnumerable<TrackInfo> GetPlaylistTracks(int playlistId)
+        {
+            return _dbContext.PlaylistTracks.Where(x => x.PlaylistId == playlistId)
+                                            .OrderBy(x => x.TrackNum)
+                                            .ThenBy(x => x.Track.Title)
+                                            .Select(t => new TrackInfo
+                                            {
+                                                TrackId = t.PlaylistTrackId,
+                                                Album = t.Track.Album.Title,
+                                                AlbumArtist = t.Track.Album.AlbumArtist,
+                                                Artist = t.Track.Artist.Title,
+                                                Year = t.Track.Album.Year,
+                                                Title = t.Track.Title,
+                                                TrackNum = t.TrackNum
+                                            });
         }
 
         public IEnumerable<TrackInfo> SearchTracks(string title, string artist, string album, int maxTake)

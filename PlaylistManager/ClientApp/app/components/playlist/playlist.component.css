@@ -60,8 +60,13 @@ table.plTracks button {
     height: 20px;
     line-height: 9px;
     margin-bottom: 1px;
+    color: #fff;
+    background-color: #5cb85c;
+    border-color: #4cae4c;
+    border: 1px solid transparent;
+    border-radius: 4px;
 }
 table.plTracks button:disabled {
-    opacity:0.5;
+    opacity:0.6;
     cursor:not-allowed;
 }

@@ -113,7 +113,7 @@ export class PlaylistComponent implements OnInit {
         });
     }
 
-    AddTrack(t: Track) {
+    addTrack(t: Track) {
         var lastTrackNum = this.model.tracks[this.model.tracks.length - 1].trackNum;
         t.trackNum = lastTrackNum === null ? (this.model.tracks.length + 1) : lastTrackNum + 1;
 
@@ -121,6 +121,14 @@ export class PlaylistComponent implements OnInit {
             .subscribe(data => {
                 if (data !== null) 
                     this.model.tracks.push(data); // Add track to end of array
+            });
+    }
+
+    removeTrack(t: Track) {
+        this.playlistService.playListDeleteTrack(this.model.id, t)
+            .subscribe(data => {
+                if (data !== null)
+                    this.model.tracks = data;
             });
     }
 

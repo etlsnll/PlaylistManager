@@ -66,7 +66,7 @@
                     <td class="titleCol">{{ track.title }}</td>
                     <td>{{ track.artist }}</td>
                     <td>{{ track.album }} <span [hidden]="!track.year">({{track.year}})</span></td>
-                    <td><button title="Add to playlist" class="btn btn-success" (click)="AddTrack(track)">Add</button></td>
+                    <td><button title="Add to playlist" class="btn btn-success" (click)="addTrack(track)">Add</button></td>
                 </tr>
             </tbody>
         </table>

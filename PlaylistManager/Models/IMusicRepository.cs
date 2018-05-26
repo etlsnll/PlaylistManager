@@ -21,5 +21,7 @@ namespace PlaylistManager.Models
         PlaylistDetails UpdatePlayListTitle(int id, string title);
 
         TrackInfo PlayListAddTrack(int playlistId, int trackId, int trackNumInPlaylist);
+
+        IEnumerable<TrackInfo> PlayListDeleteTrack(int id, int trackId);
     }
 }
