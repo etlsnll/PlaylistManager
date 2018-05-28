@@ -25,5 +25,7 @@ namespace PlaylistManager.Models
         IEnumerable<TrackInfo> PlayListDeleteTrack(int id, int trackId);
 
         bool DeletePlayList(int id);
+
+        IEnumerable<TrackInfo> PlayListMoveTrack(int id, int trackId, bool moveUp);
     }
 }

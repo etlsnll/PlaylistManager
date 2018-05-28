@@ -88,6 +88,18 @@ export class PlaylistService {
             .catch(this.handleErrorObservable)
             .map(response => response.json() as boolean);
     }
+
+    playListMoveTrackUp(playlistId: number, t: Track) {
+        return this.http.put(this.url + 'api/MusicLibrary/PlayListMoveTrackUp/' + playlistId.toString(), t)
+            .catch(this.handleErrorObservable)
+            .map(response => response.json() as Track[]);
+    }
+
+    playListMoveTrackDown(playlistId: number, t: Track) {
+        return this.http.put(this.url + 'api/MusicLibrary/PlayListMoveTrackDown/' + playlistId.toString(), t)
+            .catch(this.handleErrorObservable)
+            .map(response => response.json() as Track[]);
+    }
 }
 
 export interface Track {

@@ -115,6 +115,25 @@ namespace PlaylistManager.Models
             return false;
         }
 
+        public IEnumerable<TrackInfo> PlayListMoveTrack(int id, int trackId, bool moveUp)
+        {
+            var trk = _dbContext.PlaylistTracks.FirstOrDefault(x => x.PlaylistTrackId == trackId && x.PlaylistId == id);
+            var offset = (moveUp ? 1 : -1);
+            if (trk != null)
+            {
+                var trkAbove = _dbContext.PlaylistTracks.FirstOrDefault(x => x.TrackNum == (trk.TrackNum - offset) && x.PlaylistId == id);
+                if (trkAbove != null)
+                {
+                    trk.TrackNum -= offset;
+                    trkAbove.TrackNum += offset;
+                }
+                _dbContext.SaveChanges();
+
+                return GetPlaylistTracks(id);
+            }
+            return null;
+        }
+
         public int AllPlaylistsCount
         {
             get

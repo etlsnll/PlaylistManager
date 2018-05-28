@@ -1,5 +1,5 @@
-﻿table {
-    width:80%;
+﻿div.playListsContainer {
+    width: 80%;
 }
 td.numTracks, td.deleteCol {
     width: 100px;

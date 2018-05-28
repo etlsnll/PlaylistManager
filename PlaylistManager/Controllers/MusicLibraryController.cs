@@ -160,5 +160,37 @@ namespace PlaylistManager.Controllers
 
             return result;
         }
+
+        /// <summary>
+        /// PUT: api/MusicLibrary/PlayListMoveTrackUp/7
+        /// </summary>
+        /// <param name="id">ID of playlist to update</param>
+        /// <param name="info">Track model object for track to move</param>
+        /// <returns>Updated list of tracks for the playlist</returns>
+        [HttpPut("[action]/{id}")]
+        public IEnumerable<TrackInfo> PlayListMoveTrackUp(int id, [FromBody]TrackInfo info)
+        {
+            var t = _musicRepository.PlayListMoveTrack(id, info.TrackId, true);
+            if (t == null)
+                _logger.LogError("Track with ID {0} failed to be moved up in playlist ID {1} in DB", info.TrackId, id);
+
+            return t;
+        }
+
+        /// <summary>
+        /// PUT: api/MusicLibrary/PlayListMoveTrackDown/56
+        /// </summary>
+        /// <param name="id">ID of playlist to update</param>
+        /// <param name="info">Track model object for track to move</param>
+        /// <returns>Updated list of tracks for the playlist</returns>
+        [HttpPut("[action]/{id}")]
+        public IEnumerable<TrackInfo> PlayListMoveTrackDown(int id, [FromBody]TrackInfo info)
+        {
+            var t = _musicRepository.PlayListMoveTrack(id, info.TrackId, false);
+            if (t == null)
+                _logger.LogError("Track with ID {0} failed to be moved down in playlist ID {1} in DB", info.TrackId, id);
+
+            return t;
+        }
     }
 }

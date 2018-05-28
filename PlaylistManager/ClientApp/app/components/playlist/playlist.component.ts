@@ -28,6 +28,7 @@ export class PlaylistComponent implements OnInit {
     searchTitle: FormControl = new FormControl();
     searchArtist: FormControl = new FormControl();
     searchAlbum: FormControl = new FormControl();
+    public waitingMoveTrack: boolean = false;
 
     /** playlist ctor */
     constructor(private playlistService: PlaylistService,
@@ -58,8 +59,6 @@ export class PlaylistComponent implements OnInit {
     }
 
     searchTracks() {
-        //console.log(this.searchTitle.value + ", " + this.searchArtist.value + ", " + this.searchAlbum.value);
-
         var title: string = (this.searchTitle.value !== null ? this.searchTitle.value.toString() : "");
         var artist: string = (this.searchArtist.value !== null ? this.searchArtist.value.toString() : "");
         var album: string = (this.searchAlbum.value !== null ? this.searchAlbum.value.toString() : "");
@@ -129,6 +128,28 @@ export class PlaylistComponent implements OnInit {
             .subscribe(data => {
                 if (data !== null)
                     this.model.tracks = data;
+            });
+    }
+
+    moveTrackUp(t: Track) {
+        this.waitingMoveTrack = true;
+        this.playlistService.playListMoveTrackUp(this.model.id, t)
+            .subscribe(data => {
+                if (data !== null) {
+                    this.model.tracks = data;
+                    this.waitingMoveTrack = false;
+                }
+            });
+    }
+
+    moveTrackDown(t: Track) {
+        this.waitingMoveTrack = true;
+        this.playlistService.playListMoveTrackDown(this.model.id, t)
+            .subscribe(data => {
+                if (data !== null) {
+                    this.model.tracks = data;
+                    this.waitingMoveTrack = false;
+                }
             });
     }
 
