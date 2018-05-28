@@ -10,3 +10,7 @@ td.plTitle {
 tr.resultsRow:hover {
     background-color: lightgray;
 }
+tr.resultsRow button {
+    height: 25px;
+    line-height: 11px;
+}

@@ -82,6 +82,12 @@ export class PlaylistService {
             .catch(this.handleErrorObservable)
             .map(response => response.json() as Track[]);
     }
+
+    deletePlaylist(playlistId: number) {
+        return this.http.delete(this.url + 'api/MusicLibrary/DeletePlayList/' + playlistId.toString())
+            .catch(this.handleErrorObservable)
+            .map(response => response.json() as boolean);
+    }
 }
 
 export interface Track {

@@ -145,5 +145,20 @@ namespace PlaylistManager.Controllers
 
             return t;
         }
+
+        /// <summary>
+        /// DELETE: api/MusicLibrary/DeletePlayList/4
+        /// </summary>
+        /// <param name="id">ID of playlist to delete</param>
+        /// <returns>True if successful</returns>
+        [HttpDelete("[action]/{id}")]
+        public bool DeletePlayList(int id)
+        {
+            var result = _musicRepository.DeletePlayList(id);
+            if (!result)
+                _logger.LogError("Playlist with ID {0} failed to be deleted in DB", id);
+
+            return result;
+        }
     }
 }

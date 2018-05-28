@@ -23,5 +23,7 @@ namespace PlaylistManager.Models
         TrackInfo PlayListAddTrack(int playlistId, int trackId, int trackNumInPlaylist);
 
         IEnumerable<TrackInfo> PlayListDeleteTrack(int id, int trackId);
+
+        bool DeletePlayList(int id);
     }
 }

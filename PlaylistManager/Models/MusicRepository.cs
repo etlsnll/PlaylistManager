@@ -102,6 +102,19 @@ namespace PlaylistManager.Models
             return null;
         }
 
+        public bool DeletePlayList(int id)
+        {
+            var pl = _dbContext.Playlists.FirstOrDefault(x => x.PlaylistId == id);
+            if (pl != null)
+            {
+                _dbContext.PlaylistTracks.Where(x => x.PlaylistId == id).ToList().ForEach(t => _dbContext.Remove(t));
+                _dbContext.Remove(pl);
+                _dbContext.SaveChanges();
+                return true;
+            }
+            return false;
+        }
+
         public int AllPlaylistsCount
         {
             get

@@ -114,7 +114,7 @@ export class PlaylistComponent implements OnInit {
     }
 
     addTrack(t: Track) {
-        var lastTrackNum = this.model.tracks[this.model.tracks.length - 1].trackNum;
+        var lastTrackNum = this.model.tracks.length > 0 ? this.model.tracks[this.model.tracks.length - 1].trackNum : 0;
         t.trackNum = lastTrackNum === null ? (this.model.tracks.length + 1) : lastTrackNum + 1;
 
         this.playlistService.playListAddTrack(this.model.id, t)

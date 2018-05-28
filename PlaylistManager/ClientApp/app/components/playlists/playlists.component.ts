@@ -17,6 +17,7 @@ export class PlaylistsComponent implements AfterViewInit {
     public pageSizes: number[] = [10, 20, 30, 40, 50];
     public totalPages: number = 0;
     private playlistService: PlaylistService;
+    private deleteIndex: number = 0;
 
     /** playlists ctor */
     constructor(playlistService: PlaylistService) {
@@ -51,8 +52,11 @@ export class PlaylistsComponent implements AfterViewInit {
             .subscribe(data => this.playlists = data);
     }
 
-    public delete(playlistId: number): void {
-        //TODO...
-        console.log("Deleting playlist ID: " + playlistId);
+    public delete(playlist: PlaylistSummary): void {
+        this.playlistService.deletePlaylist(playlist.id)
+            .subscribe(data => {
+                if (data) // Refresh current page:
+                    this.getPlaylists();
+            });
     }
 }
