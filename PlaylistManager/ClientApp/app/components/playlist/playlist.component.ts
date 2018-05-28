@@ -132,24 +132,22 @@ export class PlaylistComponent implements OnInit {
     }
 
     moveTrackUp(t: Track) {
-        this.waitingMoveTrack = true;
+        this.waitingMoveTrack = true; // Block another move button click from user while waiting for track list to refresh
         this.playlistService.playListMoveTrackUp(this.model.id, t)
             .subscribe(data => {
-                if (data !== null) {
+                this.waitingMoveTrack = false;
+                if (data !== null)
                     this.model.tracks = data;
-                    this.waitingMoveTrack = false;
-                }
             });
     }
 
     moveTrackDown(t: Track) {
-        this.waitingMoveTrack = true;
+        this.waitingMoveTrack = true; // Block another move button click from user while waiting for track list to refresh
         this.playlistService.playListMoveTrackDown(this.model.id, t)
             .subscribe(data => {
-                if (data !== null) {
+                this.waitingMoveTrack = false;
+                if (data !== null)
                     this.model.tracks = data;
-                    this.waitingMoveTrack = false;
-                }
             });
     }
 
