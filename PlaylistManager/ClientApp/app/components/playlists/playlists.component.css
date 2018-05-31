@@ -1,10 +1,4 @@
-﻿div.playListsContainer {
-    width: 80%;
-}
-td.numTracks, td.deleteCol {
-    width: 100px;
-}
-td.plTitle {
+﻿td.plTitle {
     max-width:300px;
 }
 tr.resultsRow:hover {

@@ -45,9 +45,15 @@
     <div class="srchCont">
         <h3>Search tracks</h3>
         <form #TrackSearch="ngForm" class="trForm" name="trSearchForm">
-            <label for="name">Track title</label><input type="text" [formControl]="searchTitle" class="form-control trSearch" id="title" name="title">
-            <label for="name">Artist</label><input type="text" [formControl]="searchArtist" class="form-control trSearch" id="artist" name="artist">
-            <label for="name">Album</label><input type="text" [formControl]="searchAlbum" class="form-control trSearch" id="album" name="album">
+            <div class="trFormSrchFilter">
+                <label for="name">Track title</label><input type="text" [formControl]="searchTitle" class="form-control trSearch" id="title" name="title">
+            </div>
+            <div class="trFormSrchFilter">
+                <label for="name">Artist</label><input type="text" [formControl]="searchArtist" class="form-control trSearch" id="artist" name="artist">
+            </div>
+            <div class="trFormSrchFilter">
+                <label for="name">Album</label><input type="text" [formControl]="searchAlbum" class="form-control trSearch" id="album" name="album">
+            </div>
             <button type="reset" class="btn btn-info" (click)="clearResults()">Reset</button>
         </form>
     </div>
