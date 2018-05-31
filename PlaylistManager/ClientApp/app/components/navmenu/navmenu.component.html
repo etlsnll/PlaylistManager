@@ -13,22 +13,22 @@
         <div class='navbar-collapse collapse'>
             <ul class='nav navbar-nav'>
                 <li [routerLinkActive]="['link-active']">
-                    <a [routerLink]="['/home']">
+                    <a [routerLink]="['/home']" (click)="collapseMenu()">
                         <span class='glyphicon glyphicon-home'></span> Home
                     </a>
                 </li>
                 <li [routerLinkActive]="['link-active']">
-                    <a [routerLink]="['/all-music']">
+                    <a [routerLink]="['/all-music']" (click)="collapseMenu()">
                         <span class='glyphicon glyphicon-th-list'></span> All Music
                     </a>
                 </li>
                 <li [routerLinkActive]="['link-active']">
-                    <a [routerLink]="['/add-playlist']">
+                    <a [routerLink]="['/add-playlist']" (click)="collapseMenu()">
                         <span class='glyphicon glyphicon-plus-sign'></span> Add playlist
                     </a>
                 </li>
                 <li [routerLinkActive]="['link-active']">
-                    <a [routerLink]="['/playlists']">
+                    <a [routerLink]="['/playlists']" (click)="collapseMenu()">
                         <span class='glyphicon glyphicon-th-list'></span> All playlists
                     </a>
                 </li>
