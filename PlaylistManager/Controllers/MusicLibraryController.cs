@@ -42,6 +42,11 @@ namespace PlaylistManager.Controllers
         [HttpGet("[action]")]
         public IEnumerable<TrackInfo> AllTracks(int pageNum, int pageSize)
         {
+            if (pageNum < 1)
+                throw new ArgumentException("Value must be greater than 0", "pageNum");
+            if (pageSize < 1)
+                throw new ArgumentException("Value must be greater than 0", "pageSize");
+
             return _musicRepository.GetAllTracks(pageNum, pageSize);
         }
 
@@ -70,8 +75,13 @@ namespace PlaylistManager.Controllers
         /// <param name="pageSize">Page size</param>
         /// <returns>List of music playlist info classes</returns>
         [HttpGet("[action]")]
-        public IEnumerable<PlaylistInfo> AllPlaylists(int pageNum, int pageSize)
+        public IEnumerable<PlaylistSummary> AllPlaylists(int pageNum, int pageSize)
         {
+            if (pageNum < 1)
+                throw new ArgumentException("Value must be greater than 0", "pageNum");
+            if (pageSize < 1)
+                throw new ArgumentException("Value must be greater than 0", "pageSize");
+
             return _musicRepository.GetAllPlaylists(pageNum, pageSize);
         }
 
@@ -139,11 +149,11 @@ namespace PlaylistManager.Controllers
         [HttpDelete("PlayList/{id}/DeleteTrack/{trackId}")]
         public IEnumerable<TrackInfo> PlayListDeleteTrack(int id, int trackId)
         {
-            var t = _musicRepository.PlayListDeleteTrack(id, trackId);
-            if (t == null)
+            var tracks = _musicRepository.PlayListDeleteTrack(id, trackId);
+            if (tracks == null)
                 _logger.LogError("Track with ID {0} failed to be deleted from playlist ID {1} in DB", trackId, id);
 
-            return t;
+            return tracks;
         }
 
         /// <summary>
@@ -170,11 +180,11 @@ namespace PlaylistManager.Controllers
         [HttpPut("[action]/{id}")]
         public IEnumerable<TrackInfo> PlayListMoveTrackUp(int id, [FromBody]TrackInfo info)
         {
-            var t = _musicRepository.PlayListMoveTrack(id, info.TrackId, true);
-            if (t == null)
+            var tracks = _musicRepository.PlayListMoveTrack(id, info.TrackId, true);
+            if (tracks == null)
                 _logger.LogError("Track with ID {0} failed to be moved up in playlist ID {1} in DB", info.TrackId, id);
 
-            return t;
+            return tracks;
         }
 
         /// <summary>
@@ -186,11 +196,11 @@ namespace PlaylistManager.Controllers
         [HttpPut("[action]/{id}")]
         public IEnumerable<TrackInfo> PlayListMoveTrackDown(int id, [FromBody]TrackInfo info)
         {
-            var t = _musicRepository.PlayListMoveTrack(id, info.TrackId, false);
-            if (t == null)
+            var tracks = _musicRepository.PlayListMoveTrack(id, info.TrackId, false);
+            if (tracks == null)
                 _logger.LogError("Track with ID {0} failed to be moved down in playlist ID {1} in DB", info.TrackId, id);
 
-            return t;
+            return tracks;
         }
     }
 }

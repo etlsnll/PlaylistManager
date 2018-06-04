@@ -14,6 +14,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SQL Scripts", "SQL Scripts"
 		CreateFullTextIndex.sql = CreateFullTextIndex.sql
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XUnitPlaylistManagerTests", "XUnitPlaylistManagerTests\XUnitPlaylistManagerTests.csproj", "{FC19427E-3AFC-4F8D-9791-C3BF8E6FB155}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -28,6 +30,10 @@ Global
 		{11B352B5-3C9C-41A5-9E13-AFDAA25C3A0C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{11B352B5-3C9C-41A5-9E13-AFDAA25C3A0C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{11B352B5-3C9C-41A5-9E13-AFDAA25C3A0C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FC19427E-3AFC-4F8D-9791-C3BF8E6FB155}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FC19427E-3AFC-4F8D-9791-C3BF8E6FB155}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FC19427E-3AFC-4F8D-9791-C3BF8E6FB155}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FC19427E-3AFC-4F8D-9791-C3BF8E6FB155}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
