@@ -91,7 +91,8 @@ namespace XUnitPlaylistManagerTests
 
             // Execute / Test:
             var _musicLibraryController = new MusicLibraryController(mockMusicRepository.Object, _logger);
-            Assert.Throws<ArgumentException>("pageNum", () => _musicLibraryController.AllPlaylists(0, 5));
+            var ex = Assert.Throws<ArgumentException>("pageNum", () => _musicLibraryController.AllPlaylists(0, 5));
+            Assert.StartsWith("Value must be greater than 0", ex.Message);
         }
 
         [Fact]
@@ -102,7 +103,8 @@ namespace XUnitPlaylistManagerTests
 
             // Execute / Test:
             var _musicLibraryController = new MusicLibraryController(mockMusicRepository.Object, _logger);
-            Assert.Throws<ArgumentException>("pageSize", () => _musicLibraryController.AllPlaylists(3, 0));
+            var ex = Assert.Throws<ArgumentException>("pageSize", () => _musicLibraryController.AllPlaylists(3, 0));
+            Assert.StartsWith("Value must be greater than 0", ex.Message);
         }
 
         [Fact]
