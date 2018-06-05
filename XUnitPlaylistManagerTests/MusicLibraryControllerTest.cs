@@ -1,5 +1,7 @@
 using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
+using System.Runtime.InteropServices;
 using Microsoft.Extensions.Logging;
 using Moq;
 using PlaylistManager.Controllers;
@@ -124,5 +126,61 @@ namespace XUnitPlaylistManagerTests
         }
 
         #endregion // AllPlaylists tests
+
+        #region // SearchTracks tests
+
+        [Theory]
+        [InlineData("o", "", "")]
+        [InlineData("Sh", "", "")]
+        [InlineData("ll", "", "")]
+        public void SearchTracks_OK(string title, string artist, string album)
+        {
+            // Arrange:
+            var mockMusicRepository = new Mock<IMusicRepository>();
+            var testData = new List<TrackInfo>() { new TrackInfo() { Title = "Hello" }, new TrackInfo() { Title = "Shout" } };
+            mockMusicRepository.Setup(x => x.SearchTracks(title,artist,album,50)).Returns(testData.FindAll(x => x.Title.Contains(title)));
+
+            // Execute:
+            var _musicLibraryController = new MusicLibraryController(mockMusicRepository.Object, _logger);
+            var result = _musicLibraryController.SearchTracks(title, artist, album);
+
+            // Test:
+            Assert.Equal(result, testData.FindAll(x => x.Title.Contains(title)));
+        }
+
+        [Fact]
+        public void SearchTracks_SqlException()
+        {
+            // Arrange:
+            var mockMusicRepository = new Mock<IMusicRepository>();
+            var exceptionOutput = MakeSqlException();
+            mockMusicRepository.Setup(x => x.SearchTracks("", "Nirvana", "Nevermind", 50)).Throws(exceptionOutput);
+
+            // Execute & Test:
+            var _musicLibraryController = new MusicLibraryController(mockMusicRepository.Object, _logger);
+            var ex = Assert.Throws<SqlException>(() => _musicLibraryController.SearchTracks("", "Nirvana", "Nevermind"));
+            Assert.Equal(exceptionOutput, ex); // Exception should bubble up through the controller method
+        }
+
+        #endregion // SearchTracks tests
+
+        #region Utility methods
+
+        private SqlException MakeSqlException()
+        {
+            SqlException exception = null;
+            try
+            {
+                SqlConnection conn = new SqlConnection(@"Data Source=.;Database=GUARANTEED_TO_FAIL;Connection Timeout=1");
+                conn.Open();
+            }
+            catch (SqlException ex)
+            {
+                exception = ex;
+            }
+            return exception;
+        }
+
+        #endregion // Utility methods
     }
 }
