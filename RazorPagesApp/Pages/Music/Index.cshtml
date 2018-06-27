@@ -1,0 +1,56 @@
+﻿@page
+@model RazorPagesApp.Pages.Music.IndexModel
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+</head>
+<body>
+<p>
+    <a asp-page="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Album[0].Title)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Album[0].Year)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Album[0].AlbumArtist)
+                </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.Album) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Year)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AlbumArtist)
+            </td>
+            <td>
+                <a asp-page="./Edit" asp-route-id="@item.AlbumId">Edit</a> |
+                <a asp-page="./Details" asp-route-id="@item.AlbumId">Details</a> |
+                <a asp-page="./Delete" asp-route-id="@item.AlbumId">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+</body>
+</html>

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
 using Microsoft.Extensions.Configuration;
@@ -61,6 +62,8 @@ namespace PlaylistManager.Models
     public class Artist
     {
         public int ArtistId { get; set; }
+
+        [DisplayName("Artist/Band")]
         public string Title { get; set; }
     }
 

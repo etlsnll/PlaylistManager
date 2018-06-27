@@ -1,0 +1,8 @@
+version: '3.4'
+
+services:
+  razorpagesapp:
+    image: ${DOCKER_REGISTRY}razorpagesapp
+    build:
+      context: .
+      dockerfile: RazorPagesApp\Dockerfile

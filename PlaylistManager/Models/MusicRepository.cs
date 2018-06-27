@@ -35,6 +35,24 @@ namespace PlaylistManager.Models
             return result;
         }
 
+        public IEnumerable<AlbumInfo> GetAllAlbums(int pageNum, int pageSize)
+        {
+            var result = _dbContext.Albums.OrderBy(x => x.Title)
+                                          .Skip((pageNum - 1) * pageSize)
+                                          .Take(pageSize)
+                                          .Select(x => 
+                                              new AlbumInfo()
+                                              {
+                                                  AlbumId = x.AlbumId,
+                                                  Title = x.Title,
+                                                  AlbumArtist = x.AlbumArtist,
+                                                  Artist = (x.Tracks.Any() ? x.Tracks.First().Artist : null),
+                                                  Year = x.Year
+                                              }
+                                          );
+            return result;
+        }
+
         public int AllTracksCount
         {
             get
