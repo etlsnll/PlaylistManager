@@ -8,6 +8,8 @@ namespace PlaylistManager.Models
 
         IEnumerable<AlbumInfo> GetAllAlbums(int pageNum, int pageSize);
 
+        int AllAlbumsCount { get; }
+
         int AllTracksCount { get; }
 
         int AddPlayList(string title);

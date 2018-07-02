@@ -53,6 +53,16 @@ namespace PlaylistManager.Models
             return result;
         }
 
+
+        public int AllAlbumsCount
+        {
+            get
+            {
+                var result = _dbContext.Albums.Count();
+                return result;
+            }
+        }
+
         public int AllTracksCount
         {
             get

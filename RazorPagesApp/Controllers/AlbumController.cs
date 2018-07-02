@@ -23,21 +23,32 @@ namespace RazorPagesApp.Controllers
             _logger = logger;
         }
 
+        // GET: api/Album/Count
+        [HttpGet("[action]")]
+        public int Count()
+        {
+            var num = _musicRepository.AllAlbumsCount;
+            return num;
+        }
+
         /// <summary>
         /// GET: api/Album/All (server side paged results)
         /// </summary>
         /// <param name="pageNum">Page number to get</param>
         /// <param name="pageSize">Page size</param>
         /// <returns>List of music track info classes</returns>
-        [HttpGet("[action]")]
-        public IEnumerable<AlbumInfo> All(int pageNum, int pageSize)
+        [HttpGet("[action]/page/{pageNum}/size/{pageSize}")]
+        public Tuple<int, IEnumerable<AlbumInfo>> All(int pageNum, int pageSize)
         {
             if (pageNum < 1)
                 throw new ArgumentException("Value must be greater than 0", "pageNum");
             if (pageSize < 1)
                 throw new ArgumentException("Value must be greater than 0", "pageSize");
 
-            return _musicRepository.GetAllAlbums(pageNum, pageSize);
+            var num = _musicRepository.AllAlbumsCount;
+            var albums = _musicRepository.GetAllAlbums(pageNum, pageSize);
+
+            return new Tuple<int, IEnumerable<AlbumInfo>>(num, albums);
         }
     }
 }

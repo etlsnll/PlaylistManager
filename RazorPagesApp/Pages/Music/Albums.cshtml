@@ -49,5 +49,27 @@
             }
         </tbody>
     </table>
+    <p><strong>Total albums:</strong> @Model.TotalAlbums</p>
+
+    @{
+        var prevDisabled = Model.PageNum <= 1 ? "disabled" : "";
+        var nextDisabled = Model.PageNum >= (Convert.ToInt32(Math.Floor((double)(Model.TotalAlbums / Model.PageSize))) + (Model.TotalAlbums % Model.PageSize > 0 ? 1 : 0)) ? "disabled" : "";
+    }
+
+    <a asp-page="./Albums"
+       asp-route-pageNum="@(Model.PageNum - 1)"
+       asp-route-pageSize="@Model.PageSize"
+       class="btn btn-default @prevDisabled">
+        Previous
+    </a>
+    <strong>Page </strong>@Model.PageNum
+    <a asp-page="./Albums"
+       asp-route-pageNum="@(Model.PageNum + 1)"
+       asp-route-pageSize="@Model.PageSize"
+       class="btn btn-default @nextDisabled">
+        Next
+    </a>
+    <strong>Page size: </strong>
+    <select asp-for="@Model.SelectedPageSizeVal" asp-items="@Model.pageSizes" onchange="this.options[this.selectedIndex].value && (window.location = this.options[this.selectedIndex].value);"></select>
 </body>
 </html>
